@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
 import com.dao.YonghuDao;
 import com.entity.YonghuEntity;
 import com.service.YonghuService;
@@ -20,8 +19,7 @@ import com.entity.view.YonghuView;
 
 @Service("yonghuService")
 public class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> implements YonghuService {
-	
-	
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<YonghuEntity> page = this.selectPage(
@@ -30,7 +28,7 @@ public class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> impl
         );
         return new PageUtils(page);
     }
-    
+
     @Override
 	public PageUtils queryPage(Map<String, Object> params, Wrapper<YonghuEntity> wrapper) {
 		  Page<YonghuView> page =new Query<YonghuView>(params).getPage();
@@ -38,17 +36,17 @@ public class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> impl
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}
-    
+
     @Override
 	public List<YonghuVO> selectListVO(Wrapper<YonghuEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}
-	
+
 	@Override
 	public YonghuVO selectVO(Wrapper<YonghuEntity> wrapper) {
  		return baseMapper.selectVO(wrapper);
 	}
-	
+
 	@Override
 	public List<YonghuView> selectListView(Wrapper<YonghuEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);
@@ -58,6 +56,5 @@ public class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> impl
 	public YonghuView selectView(Wrapper<YonghuEntity> wrapper) {
 		return baseMapper.selectView(wrapper);
 	}
-
 
 }

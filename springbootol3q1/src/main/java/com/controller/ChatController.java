@@ -36,26 +36,12 @@ import com.utils.MPUtil;
 import com.utils.CommonUtil;
 import java.io.IOException;
 
-/**
- * 在线客服
- * 后端接口
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
     @Autowired
     private ChatService chatService;
 
-
-    
-
-
-    /**
-     * 后端列表
-     */
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,ChatEntity chat,
 		HttpServletRequest request){
@@ -67,10 +53,7 @@ public class ChatController {
 
         return R.ok().put("data", page);
     }
-    
-    /**
-     * 前端列表
-     */
+
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,ChatEntity chat, 
 		HttpServletRequest request){
@@ -82,9 +65,6 @@ public class ChatController {
         return R.ok().put("data", page);
     }
 
-	/**
-     * 列表
-     */
     @RequestMapping("/lists")
     public R list( ChatEntity chat){
        	EntityWrapper<ChatEntity> ew = new EntityWrapper<ChatEntity>();
@@ -92,9 +72,6 @@ public class ChatController {
         return R.ok().put("data", chatService.selectListView(ew));
     }
 
-	 /**
-     * 查询
-     */
     @RequestMapping("/query")
     public R query(ChatEntity chat){
         EntityWrapper< ChatEntity> ew = new EntityWrapper< ChatEntity>();
@@ -102,36 +79,24 @@ public class ChatController {
 		ChatView chatView =  chatService.selectView(ew);
 		return R.ok("查询在线客服成功").put("data", chatView);
     }
-	
-    /**
-     * 后端详情
-     */
+
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id){
         ChatEntity chat = chatService.selectById(id);
         return R.ok().put("data", chat);
     }
 
-    /**
-     * 前端详情
-     */
 	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         ChatEntity chat = chatService.selectById(id);
         return R.ok().put("data", chat);
     }
-    
 
-
-
-    /**
-     * 后端保存
-     */
     @RequestMapping("/save")
     public R save(@RequestBody ChatEntity chat, HttpServletRequest request){
     	chat.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(chat);
+
     	if(StringUtils.isNotBlank(chat.getAsk())) {
 			chatService.updateForSet("isreply=0", new EntityWrapper<ChatEntity>().eq("userid", request.getSession().getAttribute("userId")));
     		chat.setUserid((Long)request.getSession().getAttribute("userId"));
@@ -144,14 +109,11 @@ public class ChatController {
         chatService.insert(chat);
         return R.ok();
     }
-    
-    /**
-     * 前端保存
-     */
+
     @RequestMapping("/add")
     public R add(@RequestBody ChatEntity chat, HttpServletRequest request){
     	chat.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(chat);
+
     	chat.setUserid((Long)request.getSession().getAttribute("userId"));
     	if(StringUtils.isNotBlank(chat.getAsk())) {
 			chatService.updateForSet("isreply=0", new EntityWrapper<ChatEntity>().eq("userid", request.getSession().getAttribute("userId")));
@@ -166,35 +128,25 @@ public class ChatController {
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
     @RequestMapping("/update")
     public R update(@RequestBody ChatEntity chat, HttpServletRequest request){
-        //ValidatorUtils.validateEntity(chat);
-        chatService.updateById(chat);//全部更新
+
+        chatService.updateById(chat);
         return R.ok();
     }
-    
 
-    /**
-     * 删除
-     */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         chatService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
-    
-    /**
-     * 提醒接口
-     */
+
 	@RequestMapping("/remind/{columnName}/{type}")
 	public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request, 
 						 @PathVariable("type") String type,@RequestParam Map<String, Object> map) {
 		map.put("column", columnName);
 		map.put("type", type);
-		
+
 		if(type.equals("2")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
@@ -215,7 +167,7 @@ public class ChatController {
 				map.put("remindend", sdf.format(remindEndDate));
 			}
 		}
-		
+
 		Wrapper<ChatEntity> wrapper = new EntityWrapper<ChatEntity>();
 		if(map.get("remindstart")!=null) {
 			wrapper.ge(columnName, map.get("remindstart"));
@@ -224,16 +176,8 @@ public class ChatController {
 			wrapper.le(columnName, map.get("remindend"));
 		}
 
-
 		int count = chatService.selectCount(wrapper);
 		return R.ok().put("count", count);
 	}
-	
-
-
-
-
-
-
 
 }

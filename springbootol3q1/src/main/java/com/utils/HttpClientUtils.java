@@ -5,18 +5,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
-/**
- * HttpClient工具类
- */
 public class HttpClientUtils {
 
-    /**
-     * @param uri
-     * @return String
-     * @description get请求方式
-     * @author: long.he01
-     */
     public static String doGet(String uri) {
 
         StringBuilder result = new StringBuilder();

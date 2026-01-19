@@ -10,28 +10,19 @@ import com.entity.vo.StoreupVO;
 import org.apache.ibatis.annotations.Param;
 import com.entity.view.StoreupView;
 
-
-/**
- * 收藏表
- *
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface StoreupService extends IService<StoreupEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-    
+
    	List<StoreupVO> selectListVO(Wrapper<StoreupEntity> wrapper);
-   	
+
    	StoreupVO selectVO(@Param("ew") Wrapper<StoreupEntity> wrapper);
-   	
+
    	List<StoreupView> selectListView(Wrapper<StoreupEntity> wrapper);
-   	
+
    	StoreupView selectView(@Param("ew") Wrapper<StoreupEntity> wrapper);
-   	
+
    	PageUtils queryPage(Map<String, Object> params,Wrapper<StoreupEntity> wrapper);
-   	
 
 }
 

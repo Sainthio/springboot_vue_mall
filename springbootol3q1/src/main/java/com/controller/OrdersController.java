@@ -36,26 +36,12 @@ import com.utils.MPUtil;
 import com.utils.CommonUtil;
 import java.io.IOException;
 
-/**
- * 订单
- * 后端接口
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 @RestController
 @RequestMapping("/orders")
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
 
-
-    
-
-
-    /**
-     * 后端列表
-     */
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,OrdersEntity orders,
 		HttpServletRequest request){
@@ -67,10 +53,7 @@ public class OrdersController {
 
         return R.ok().put("data", page);
     }
-    
-    /**
-     * 前端列表
-     */
+
 	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,OrdersEntity orders, 
@@ -80,9 +63,6 @@ public class OrdersController {
         return R.ok().put("data", page);
     }
 
-	/**
-     * 列表
-     */
     @RequestMapping("/lists")
     public R list( OrdersEntity orders){
        	EntityWrapper<OrdersEntity> ew = new EntityWrapper<OrdersEntity>();
@@ -90,9 +70,6 @@ public class OrdersController {
         return R.ok().put("data", ordersService.selectListView(ew));
     }
 
-	 /**
-     * 查询
-     */
     @RequestMapping("/query")
     public R query(OrdersEntity orders){
         EntityWrapper< OrdersEntity> ew = new EntityWrapper< OrdersEntity>();
@@ -100,81 +77,56 @@ public class OrdersController {
 		OrdersView ordersView =  ordersService.selectView(ew);
 		return R.ok("查询订单成功").put("data", ordersView);
     }
-	
-    /**
-     * 后端详情
-     */
+
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id){
         OrdersEntity orders = ordersService.selectById(id);
         return R.ok().put("data", orders);
     }
 
-    /**
-     * 前端详情
-     */
 	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         OrdersEntity orders = ordersService.selectById(id);
         return R.ok().put("data", orders);
     }
-    
 
-
-
-    /**
-     * 后端保存
-     */
     @RequestMapping("/save")
     public R save(@RequestBody OrdersEntity orders, HttpServletRequest request){
     	orders.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(orders);
+
     	orders.setUserid((Long)request.getSession().getAttribute("userId"));
         ordersService.insert(orders);
         return R.ok();
     }
-    
-    /**
-     * 前端保存
-     */
+
     @RequestMapping("/add")
     public R add(@RequestBody OrdersEntity orders, HttpServletRequest request){
     	orders.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(orders);
+
         ordersService.insert(orders);
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
     @RequestMapping("/update")
     public R update(@RequestBody OrdersEntity orders, HttpServletRequest request){
-        //ValidatorUtils.validateEntity(orders);
-        ordersService.updateById(orders);//全部更新
+
+        ordersService.updateById(orders);
         return R.ok();
     }
-    
 
-    /**
-     * 删除
-     */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         ordersService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
-    
-    /**
-     * 提醒接口
-     */
+
 	@RequestMapping("/remind/{columnName}/{type}")
 	public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request, 
 						 @PathVariable("type") String type,@RequestParam Map<String, Object> map) {
 		map.put("column", columnName);
 		map.put("type", type);
-		
+
 		if(type.equals("2")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
@@ -195,7 +147,7 @@ public class OrdersController {
 				map.put("remindend", sdf.format(remindEndDate));
 			}
 		}
-		
+
 		Wrapper<OrdersEntity> wrapper = new EntityWrapper<OrdersEntity>();
 		if(map.get("remindstart")!=null) {
 			wrapper.ge(columnName, map.get("remindstart"));
@@ -207,20 +159,10 @@ public class OrdersController {
     		wrapper.eq("userid", (Long)request.getSession().getAttribute("userId"));
     	}
 
-
 		int count = ordersService.selectCount(wrapper);
 		return R.ok().put("count", count);
 	}
-	
 
-
-
-
-
-
-    /**
-     * （按值统计）
-     */
     @RequestMapping("/value/{xColumnName}/{yColumnName}")
     public R value(@PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName,HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -240,9 +182,6 @@ public class OrdersController {
         return R.ok().put("data", result);
     }
 
-    /**
-     * （按值统计）时间统计类型
-     */
     @RequestMapping("/value/{xColumnName}/{yColumnName}/{timeStatType}")
     public R valueDay(@PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName, @PathVariable("timeStatType") String timeStatType,HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -263,9 +202,6 @@ public class OrdersController {
         return R.ok().put("data", result);
     }
 
-    /**
-     * 分组统计
-     */
     @RequestMapping("/group/{columnName}")
     public R group(@PathVariable("columnName") String columnName,HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();

@@ -2,13 +2,13 @@ package com.utils;
 
 public class JQPageInfo{
 	private Integer page;
-	
+
 	private Integer limit;
-	
+
 	private String sidx;
-	
+
 	private String order;
-	
+
 	private  Integer offset;
 
 	public Integer getPage() {
@@ -34,7 +34,7 @@ public class JQPageInfo{
 	public void setSidx(String sidx) {
 		this.sidx = sidx;
 	}
-	
+
 	public String getOrder() {
 		return order;
 	}
@@ -50,5 +50,5 @@ public class JQPageInfo{
 	public void setOffset(Integer offset) {
 		this.offset = offset;
 	}
-	
+
 }

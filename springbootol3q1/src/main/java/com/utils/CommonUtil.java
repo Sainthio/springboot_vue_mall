@@ -9,12 +9,7 @@ import java.util.Objects;
 
 @Component
 public class CommonUtil {
-	/**
-     * 获取随机字符串
-     *
-     * @param num
-     * @return
-     */
+
     public static String getRandomString(Integer num) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
@@ -26,12 +21,6 @@ public class CommonUtil {
         return sb.toString();
     }
 
-	/**
-	 * 获取随机验证码
-	 *
-	 * @param num
-	 * @return
-	 */
 	public static String getRandomNumber(Integer num) {
 	    String base = "0123456789";
 	    Random random = new Random();
@@ -45,27 +34,26 @@ public class CommonUtil {
 
     public static String getCellValue(Cell cell) {
         String resultValue = "";
-        // 判空
+
         if (Objects.isNull(cell)) {
             return resultValue;
         }
 
-        // 拿到单元格类型
         int cellType = cell.getCellType();
         switch (cellType) {
-            // 字符串类型
+
             case Cell.CELL_TYPE_STRING:
                 resultValue = StringUtils.isEmpty(cell.getStringCellValue()) ? "" : cell.getStringCellValue().trim();
                 break;
-            // 布尔类型
+
             case Cell.CELL_TYPE_BOOLEAN:
                 resultValue = String.valueOf(cell.getBooleanCellValue());
                 break;
-            // 数值类型
+
             case Cell.CELL_TYPE_NUMERIC:
                 resultValue = new DecimalFormat("#.######").format(cell.getNumericCellValue());
                 break;
-            // 取空串
+
             default:
                 break;
         }

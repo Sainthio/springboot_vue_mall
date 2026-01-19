@@ -11,20 +11,14 @@ import cn.hutool.core.bean.BeanUtil;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 
-/**
- * Mybatis-Plus工具类
- */
 public class MPUtil {
 	public static final char UNDERLINE = '_';
 
-	
-	//mybatis plus allEQ 表达式转换
 		public static Map allEQMapPre(Object bean,String pre) {
 		   Map<String, Object> map =BeanUtil.beanToMap(bean);
 		  return camelToUnderlineMap(map,pre);
 	   }
 
-		//mybatis plus allEQ 表达式转换
 		public static Map allEQMap(Object bean) {
 		   Map<String, Object> map =BeanUtil.beanToMap(bean);
 		   return camelToUnderlineMap(map,"");
@@ -33,16 +27,15 @@ public class MPUtil {
 		public static Wrapper allLikePre(Wrapper wrapper,Object bean,String pre) {
 			   Map<String, Object> map =BeanUtil.beanToMap(bean);
 			   Map result = camelToUnderlineMap(map,pre);
-			 
+
 			return genLike(wrapper,result);
 		}
-	
+
 		public static Wrapper allLike(Wrapper wrapper,Object bean) {
 			  Map result = BeanUtil.beanToMap(bean, true, true);			 
 			return genLike(wrapper,result);
 		}
-	
-	
+
 		public static Wrapper genLike( Wrapper wrapper,Map param) {
 			Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
 			int i=0;
@@ -56,12 +49,12 @@ public class MPUtil {
 			}
 			return wrapper;
 		}
-		
+
 		public static Wrapper likeOrEq(Wrapper wrapper,Object bean) {
 			  Map result = BeanUtil.beanToMap(bean, true, true);			 
 			return genLikeOrEq(wrapper,result);
 		}
-		
+
 		public static Wrapper genLikeOrEq( Wrapper wrapper,Map param) {
 			Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
 			int i=0;
@@ -78,13 +71,12 @@ public class MPUtil {
 			}
 			return wrapper;
 		}
-		
+
 		public static Wrapper allEq(Wrapper wrapper,Object bean) {
 			  Map result = BeanUtil.beanToMap(bean, true, true);			 
 			return genEq(wrapper,result);
 		}
-	
-	
+
 		public static Wrapper genEq( Wrapper wrapper,Map param) {
 			Iterator<Map.Entry<String, Object>> it = param.entrySet().iterator();
 			int i=0;
@@ -97,8 +89,7 @@ public class MPUtil {
 			}
 			return wrapper;
 		}
-	
-	
+
 		public static Wrapper between(Wrapper wrapper,Map<String, Object> params) {
 			for(String key : params.keySet()) {
 				String columnName = "";
@@ -117,7 +108,7 @@ public class MPUtil {
 			}
 			return wrapper;
 		}
-	
+
 		public static Wrapper sort(Wrapper wrapper,Map<String, Object> params) {
 			String order = "";
 			if(params.get("order") != null && StringUtils.isNotBlank(params.get("order").toString())) {
@@ -132,14 +123,7 @@ public class MPUtil {
 			}
 			return wrapper;
 		}
-	
-	
-	/**
-	 * 驼峰格式字符串转换为下划线格式字符串
-	 * 
-	 * @param param
-	 * @return
-	 */
+
 	public static String camelToUnderline(String param) {
 		if (param == null || "".equals(param.trim())) {
 			return "";
@@ -161,7 +145,7 @@ public class MPUtil {
 	public static void main(String[] ages) {
 		System.out.println(camelToUnderline("ABCddfANM"));
 	}
-	
+
 	public static Map camelToUnderlineMap(Map param, String pre) {
 
 		Map<String, Object> newMap = new HashMap<String, Object>();

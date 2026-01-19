@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
 import com.dao.ShangpinxinxiDao;
 import com.entity.ShangpinxinxiEntity;
 import com.service.ShangpinxinxiService;
@@ -20,8 +19,7 @@ import com.entity.view.ShangpinxinxiView;
 
 @Service("shangpinxinxiService")
 public class ShangpinxinxiServiceImpl extends ServiceImpl<ShangpinxinxiDao, ShangpinxinxiEntity> implements ShangpinxinxiService {
-	
-	
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<ShangpinxinxiEntity> page = this.selectPage(
@@ -30,7 +28,7 @@ public class ShangpinxinxiServiceImpl extends ServiceImpl<ShangpinxinxiDao, Shan
         );
         return new PageUtils(page);
     }
-    
+
     @Override
 	public PageUtils queryPage(Map<String, Object> params, Wrapper<ShangpinxinxiEntity> wrapper) {
 		  Page<ShangpinxinxiView> page =new Query<ShangpinxinxiView>(params).getPage();
@@ -38,17 +36,17 @@ public class ShangpinxinxiServiceImpl extends ServiceImpl<ShangpinxinxiDao, Shan
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}
-    
+
     @Override
 	public List<ShangpinxinxiVO> selectListVO(Wrapper<ShangpinxinxiEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}
-	
+
 	@Override
 	public ShangpinxinxiVO selectVO(Wrapper<ShangpinxinxiEntity> wrapper) {
  		return baseMapper.selectVO(wrapper);
 	}
-	
+
 	@Override
 	public List<ShangpinxinxiView> selectListView(Wrapper<ShangpinxinxiEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);
@@ -58,6 +56,5 @@ public class ShangpinxinxiServiceImpl extends ServiceImpl<ShangpinxinxiDao, Shan
 	public ShangpinxinxiView selectView(Wrapper<ShangpinxinxiEntity> wrapper) {
 		return baseMapper.selectView(wrapper);
 	}
-
 
 }

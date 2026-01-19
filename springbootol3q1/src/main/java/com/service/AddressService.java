@@ -10,28 +10,19 @@ import com.entity.vo.AddressVO;
 import org.apache.ibatis.annotations.Param;
 import com.entity.view.AddressView;
 
-
-/**
- * 地址
- *
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface AddressService extends IService<AddressEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-    
+
    	List<AddressVO> selectListVO(Wrapper<AddressEntity> wrapper);
-   	
+
    	AddressVO selectVO(@Param("ew") Wrapper<AddressEntity> wrapper);
-   	
+
    	List<AddressView> selectListView(Wrapper<AddressEntity> wrapper);
-   	
+
    	AddressView selectView(@Param("ew") Wrapper<AddressEntity> wrapper);
-   	
+
    	PageUtils queryPage(Map<String, Object> params,Wrapper<AddressEntity> wrapper);
-   	
 
 }
 

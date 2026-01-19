@@ -20,62 +20,34 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
 
-
-/**
- * 购物活动
- * 数据库通用操作实体类（普通增删改查）
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 @TableName("news")
 public class NewsEntity<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-
 	public NewsEntity() {
-		
+
 	}
-	
+
 	public NewsEntity(T t) {
 		try {
 			BeanUtils.copyProperties(this, t);
 		} catch (IllegalAccessException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * 主键id
-	 */
+
 	@TableId
 	private Long id;
-	/**
-	 * 标题
-	 */
-					
+
 	private String title;
-	
-	/**
-	 * 简介
-	 */
-					
+
 	private String introduction;
-	
-	/**
-	 * 图片
-	 */
-					
+
 	private String picture;
-	
-	/**
-	 * 内容
-	 */
-					
+
 	private String content;
-	
-	
+
 	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat
 	private Date addtime;
@@ -94,51 +66,35 @@ public class NewsEntity<T> implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/**
-	 * 设置：标题
-	 */
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	/**
-	 * 获取：标题
-	 */
+
 	public String getTitle() {
 		return title;
 	}
-	/**
-	 * 设置：简介
-	 */
+
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-	/**
-	 * 获取：简介
-	 */
+
 	public String getIntroduction() {
 		return introduction;
 	}
-	/**
-	 * 设置：图片
-	 */
+
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	/**
-	 * 获取：图片
-	 */
+
 	public String getPicture() {
 		return picture;
 	}
-	/**
-	 * 设置：内容
-	 */
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	/**
-	 * 获取：内容
-	 */
+
 	public String getContent() {
 		return content;
 	}

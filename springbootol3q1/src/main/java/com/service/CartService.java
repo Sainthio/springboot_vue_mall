@@ -10,28 +10,19 @@ import com.entity.vo.CartVO;
 import org.apache.ibatis.annotations.Param;
 import com.entity.view.CartView;
 
-
-/**
- * 购物车表
- *
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface CartService extends IService<CartEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-    
+
    	List<CartVO> selectListVO(Wrapper<CartEntity> wrapper);
-   	
+
    	CartVO selectVO(@Param("ew") Wrapper<CartEntity> wrapper);
-   	
+
    	List<CartView> selectListView(Wrapper<CartEntity> wrapper);
-   	
+
    	CartView selectView(@Param("ew") Wrapper<CartEntity> wrapper);
-   	
+
    	PageUtils queryPage(Map<String, Object> params,Wrapper<CartEntity> wrapper);
-   	
 
 }
 

@@ -10,28 +10,19 @@ import com.entity.vo.ChatVO;
 import org.apache.ibatis.annotations.Param;
 import com.entity.view.ChatView;
 
-
-/**
- * 在线客服
- *
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface ChatService extends IService<ChatEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-    
+
    	List<ChatVO> selectListVO(Wrapper<ChatEntity> wrapper);
-   	
+
    	ChatVO selectVO(@Param("ew") Wrapper<ChatEntity> wrapper);
-   	
+
    	List<ChatView> selectListView(Wrapper<ChatEntity> wrapper);
-   	
+
    	ChatView selectView(@Param("ew") Wrapper<ChatEntity> wrapper);
-   	
+
    	PageUtils queryPage(Map<String, Object> params,Wrapper<ChatEntity> wrapper);
-   	
 
 }
 

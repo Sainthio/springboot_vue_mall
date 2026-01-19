@@ -11,25 +11,16 @@ import org.apache.ibatis.annotations.Param;
 import com.entity.vo.StoreupVO;
 import com.entity.view.StoreupView;
 
-
-/**
- * 收藏表
- * 
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface StoreupDao extends BaseMapper<StoreupEntity> {
-	
+
 	List<StoreupVO> selectListVO(@Param("ew") Wrapper<StoreupEntity> wrapper);
-	
+
 	StoreupVO selectVO(@Param("ew") Wrapper<StoreupEntity> wrapper);
-	
+
 	List<StoreupView> selectListView(@Param("ew") Wrapper<StoreupEntity> wrapper);
 
 	List<StoreupView> selectListView(Pagination page,@Param("ew") Wrapper<StoreupEntity> wrapper);
-	
+
 	StoreupView selectView(@Param("ew") Wrapper<StoreupEntity> wrapper);
-	
 
 }

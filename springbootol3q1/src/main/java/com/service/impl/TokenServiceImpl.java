@@ -1,7 +1,6 @@
 
 package com.service.impl;
 
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,10 +20,6 @@ import com.utils.CommonUtil;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
-/**
- * token
- */
 @Service("tokenService")
 public class TokenServiceImpl extends ServiceImpl<TokenDao, TokenEntity> implements TokenService {
 

@@ -1,7 +1,6 @@
 
 package com.service.impl;
 
-
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -16,10 +15,6 @@ import com.service.ConfigService;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
-/**
- * 系统用户
- */
 @Service("configService")
 public class ConfigServiceImpl extends ServiceImpl<ConfigDao, ConfigEntity> implements ConfigService {
 	@Override

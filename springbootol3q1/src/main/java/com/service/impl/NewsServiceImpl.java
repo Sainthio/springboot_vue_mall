@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
 import com.dao.NewsDao;
 import com.entity.NewsEntity;
 import com.service.NewsService;
@@ -20,8 +19,7 @@ import com.entity.view.NewsView;
 
 @Service("newsService")
 public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements NewsService {
-	
-	
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<NewsEntity> page = this.selectPage(
@@ -30,7 +28,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
         );
         return new PageUtils(page);
     }
-    
+
     @Override
 	public PageUtils queryPage(Map<String, Object> params, Wrapper<NewsEntity> wrapper) {
 		  Page<NewsView> page =new Query<NewsView>(params).getPage();
@@ -38,17 +36,17 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}
-    
+
     @Override
 	public List<NewsVO> selectListVO(Wrapper<NewsEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}
-	
+
 	@Override
 	public NewsVO selectVO(Wrapper<NewsEntity> wrapper) {
  		return baseMapper.selectVO(wrapper);
 	}
-	
+
 	@Override
 	public List<NewsView> selectListView(Wrapper<NewsEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);
@@ -58,6 +56,5 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, NewsEntity> implements
 	public NewsView selectView(Wrapper<NewsEntity> wrapper) {
 		return baseMapper.selectView(wrapper);
 	}
-
 
 }

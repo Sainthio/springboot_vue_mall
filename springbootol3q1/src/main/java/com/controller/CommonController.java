@@ -34,24 +34,17 @@ import com.service.ConfigService;
 import com.utils.BaiduUtil;
 import com.utils.FileUtil;
 import com.utils.R;
-/**
- * 通用接口
- */
+
 @RestController
 public class CommonController{
 	@Autowired
 	private CommonService commonService;
 
     private static AipFace client = null;
-    
+
     @Autowired
     private ConfigService configService;    
-	/**
-	 * 获取table表中的column列表(联动接口)
-	 * @param table
-	 * @param column
-	 * @return
-	 */
+
 	@IgnoreAuth
 	@RequestMapping("/option/{tableName}/{columnName}")
 	public R getOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName,String level,String parent) {
@@ -67,13 +60,7 @@ public class CommonController{
 		List<String> data = commonService.getOption(params);
 		return R.ok().put("data", data);
 	}
-	
-	/**
-	 * 根据table中的column获取单条记录
-	 * @param table
-	 * @param column
-	 * @return
-	 */
+
 	@IgnoreAuth
 	@RequestMapping("/follow/{tableName}/{columnName}")
 	public R getFollowByOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, @RequestParam String columnValue) {
@@ -84,28 +71,14 @@ public class CommonController{
 		Map<String, Object> result = commonService.getFollowByOption(params);
 		return R.ok().put("data", result);
 	}
-	
-	/**
-	 * 修改table表的sfsh状态
-	 * @param table
-	 * @param map
-	 * @return
-	 */
+
 	@RequestMapping("/sh/{tableName}")
 	public R sh(@PathVariable("tableName") String tableName, @RequestBody Map<String, Object> map) {
 		map.put("table", tableName);
 		commonService.sh(map);
 		return R.ok();
 	}
-	
-	/**
-	 * 获取需要提醒的记录数
-	 * @param tableName
-	 * @param columnName
-	 * @param type 1:数字 2:日期
-	 * @param map
-	 * @return
-	 */
+
 	@IgnoreAuth
 	@RequestMapping("/remind/{tableName}/{columnName}/{type}")
 	public R remindCount(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, 
@@ -113,7 +86,7 @@ public class CommonController{
 		map.put("table", tableName);
 		map.put("column", columnName);
 		map.put("type", type);
-		
+
 		if(type.equals("2")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
@@ -134,14 +107,11 @@ public class CommonController{
 				map.put("remindend", sdf.format(remindEndDate));
 			}
 		}
-		
+
 		int count = commonService.remindCount(map);
 		return R.ok().put("count", count);
 	}
-	
-	/**
-	 * 单列求和
-	 */
+
 	@IgnoreAuth
 	@RequestMapping("/cal/{tableName}/{columnName}")
 	public R cal(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
@@ -151,10 +121,7 @@ public class CommonController{
 		Map<String, Object> result = commonService.selectCal(params);
 		return R.ok().put("data", result);
 	}
-	
-	/**
-	 * 分组统计
-	 */
+
 	@IgnoreAuth
 	@RequestMapping("/group/{tableName}/{columnName}")
 	public R group(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
@@ -172,10 +139,7 @@ public class CommonController{
 		}
 		return R.ok().put("data", result);
 	}
-	
-	/**
-	 * （按值统计）
-	 */
+
 	@IgnoreAuth
 	@RequestMapping("/value/{tableName}/{xColumnName}/{yColumnName}")
 	public R value(@PathVariable("tableName") String tableName, @PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName) {
@@ -195,9 +159,6 @@ public class CommonController{
 		return R.ok().put("data", result);
 	}
 
-	/**
- 	 * （按值统计）时间统计类型
-	 */
 	@IgnoreAuth
 	@RequestMapping("/value/{tableName}/{xColumnName}/{yColumnName}/{timeStatType}")
 	public R valueDay(@PathVariable("tableName") String tableName, @PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName, @PathVariable("timeStatType") String timeStatType) {
@@ -217,14 +178,7 @@ public class CommonController{
 		}
 		return R.ok().put("data", result);
 	}
-	
-    /**
-     * 人脸比对
-     * 
-     * @param face1 人脸1
-     * @param face2 人脸2
-     * @return
-     */
+
     @RequestMapping("/matchFace")
     @IgnoreAuth
     public R matchFace(String face1, String face2,HttpServletRequest request) {

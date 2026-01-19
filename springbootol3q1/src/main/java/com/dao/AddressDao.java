@@ -11,25 +11,16 @@ import org.apache.ibatis.annotations.Param;
 import com.entity.vo.AddressVO;
 import com.entity.view.AddressView;
 
-
-/**
- * 地址
- * 
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface AddressDao extends BaseMapper<AddressEntity> {
-	
+
 	List<AddressVO> selectListVO(@Param("ew") Wrapper<AddressEntity> wrapper);
-	
+
 	AddressVO selectVO(@Param("ew") Wrapper<AddressEntity> wrapper);
-	
+
 	List<AddressView> selectListView(@Param("ew") Wrapper<AddressEntity> wrapper);
 
 	List<AddressView> selectListView(Pagination page,@Param("ew") Wrapper<AddressEntity> wrapper);
-	
+
 	AddressView selectView(@Param("ew") Wrapper<AddressEntity> wrapper);
-	
 
 }

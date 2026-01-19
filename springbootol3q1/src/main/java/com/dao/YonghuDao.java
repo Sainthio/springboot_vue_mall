@@ -11,25 +11,16 @@ import org.apache.ibatis.annotations.Param;
 import com.entity.vo.YonghuVO;
 import com.entity.view.YonghuView;
 
-
-/**
- * 用户
- * 
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 public interface YonghuDao extends BaseMapper<YonghuEntity> {
-	
+
 	List<YonghuVO> selectListVO(@Param("ew") Wrapper<YonghuEntity> wrapper);
-	
+
 	YonghuVO selectVO(@Param("ew") Wrapper<YonghuEntity> wrapper);
-	
+
 	List<YonghuView> selectListView(@Param("ew") Wrapper<YonghuEntity> wrapper);
 
 	List<YonghuView> selectListView(Pagination page,@Param("ew") Wrapper<YonghuEntity> wrapper);
-	
+
 	YonghuView selectView(@Param("ew") Wrapper<YonghuEntity> wrapper);
-	
 
 }

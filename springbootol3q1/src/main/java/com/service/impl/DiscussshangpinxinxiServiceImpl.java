@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
 import com.dao.DiscussshangpinxinxiDao;
 import com.entity.DiscussshangpinxinxiEntity;
 import com.service.DiscussshangpinxinxiService;
@@ -20,8 +19,7 @@ import com.entity.view.DiscussshangpinxinxiView;
 
 @Service("discussshangpinxinxiService")
 public class DiscussshangpinxinxiServiceImpl extends ServiceImpl<DiscussshangpinxinxiDao, DiscussshangpinxinxiEntity> implements DiscussshangpinxinxiService {
-	
-	
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<DiscussshangpinxinxiEntity> page = this.selectPage(
@@ -30,7 +28,7 @@ public class DiscussshangpinxinxiServiceImpl extends ServiceImpl<Discussshangpin
         );
         return new PageUtils(page);
     }
-    
+
     @Override
 	public PageUtils queryPage(Map<String, Object> params, Wrapper<DiscussshangpinxinxiEntity> wrapper) {
 		  Page<DiscussshangpinxinxiView> page =new Query<DiscussshangpinxinxiView>(params).getPage();
@@ -38,17 +36,17 @@ public class DiscussshangpinxinxiServiceImpl extends ServiceImpl<Discussshangpin
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}
-    
+
     @Override
 	public List<DiscussshangpinxinxiVO> selectListVO(Wrapper<DiscussshangpinxinxiEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}
-	
+
 	@Override
 	public DiscussshangpinxinxiVO selectVO(Wrapper<DiscussshangpinxinxiEntity> wrapper) {
  		return baseMapper.selectVO(wrapper);
 	}
-	
+
 	@Override
 	public List<DiscussshangpinxinxiView> selectListView(Wrapper<DiscussshangpinxinxiEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);
@@ -58,6 +56,5 @@ public class DiscussshangpinxinxiServiceImpl extends ServiceImpl<Discussshangpin
 	public DiscussshangpinxinxiView selectView(Wrapper<DiscussshangpinxinxiEntity> wrapper) {
 		return baseMapper.selectView(wrapper);
 	}
-
 
 }

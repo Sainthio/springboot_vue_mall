@@ -1,7 +1,6 @@
 
 package com.service.impl;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +16,6 @@ import com.service.UserService;
 import com.utils.PageUtils;
 import com.utils.Query;
 
-
-/**
- * 系统用户
- */
 @Service("userService")
 public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements UserService {
 

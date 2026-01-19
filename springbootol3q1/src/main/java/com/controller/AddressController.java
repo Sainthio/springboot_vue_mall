@@ -36,26 +36,12 @@ import com.utils.MPUtil;
 import com.utils.CommonUtil;
 import java.io.IOException;
 
-/**
- * 地址
- * 后端接口
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 @RestController
 @RequestMapping("/address")
 public class AddressController {
     @Autowired
     private AddressService addressService;
 
-
-    
-
-
-    /**
-     * 后端列表
-     */
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,AddressEntity address,
 		HttpServletRequest request){
@@ -67,10 +53,7 @@ public class AddressController {
 
         return R.ok().put("data", page);
     }
-    
-    /**
-     * 前端列表
-     */
+
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,AddressEntity address, 
 		HttpServletRequest request){
@@ -82,9 +65,6 @@ public class AddressController {
         return R.ok().put("data", page);
     }
 
-	/**
-     * 列表
-     */
     @RequestMapping("/lists")
     public R list( AddressEntity address){
        	EntityWrapper<AddressEntity> ew = new EntityWrapper<AddressEntity>();
@@ -92,9 +72,6 @@ public class AddressController {
         return R.ok().put("data", addressService.selectListView(ew));
     }
 
-	 /**
-     * 查询
-     */
     @RequestMapping("/query")
     public R query(AddressEntity address){
         EntityWrapper< AddressEntity> ew = new EntityWrapper< AddressEntity>();
@@ -102,53 +79,24 @@ public class AddressController {
 		AddressView addressView =  addressService.selectView(ew);
 		return R.ok("查询地址成功").put("data", addressView);
     }
-	
-    /**
-     * 后端详情
-     */
+
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id){
         AddressEntity address = addressService.selectById(id);
         return R.ok().put("data", address);
     }
 
-    /**
-     * 前端详情
-     */
 	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         AddressEntity address = addressService.selectById(id);
         return R.ok().put("data", address);
     }
-    
 
-
-
-    /**
-     * 后端保存
-     */
     @RequestMapping("/save")
     public R save(@RequestBody AddressEntity address, HttpServletRequest request){
     	address.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(address);
-    	address.setUserid((Long)request.getSession().getAttribute("userId"));
-		Long userId = (Long)request.getSession().getAttribute("userId");
-    	if(address.getIsdefault().equals("是")) {
-    		addressService.updateForSet("isdefault='否'", new EntityWrapper<AddressEntity>().eq("userid", userId));
-    	}
-    	address.setUserid(userId);
-        addressService.insert(address);
-        return R.ok();
-    }
-    
-    /**
-     * 前端保存
-     */
-    @RequestMapping("/add")
-    public R add(@RequestBody AddressEntity address, HttpServletRequest request){
-    	address.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(address);
+
     	address.setUserid((Long)request.getSession().getAttribute("userId"));
 		Long userId = (Long)request.getSession().getAttribute("userId");
     	if(address.getIsdefault().equals("是")) {
@@ -159,22 +107,30 @@ public class AddressController {
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
+    @RequestMapping("/add")
+    public R add(@RequestBody AddressEntity address, HttpServletRequest request){
+    	address.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
+
+    	address.setUserid((Long)request.getSession().getAttribute("userId"));
+		Long userId = (Long)request.getSession().getAttribute("userId");
+    	if(address.getIsdefault().equals("是")) {
+    		addressService.updateForSet("isdefault='否'", new EntityWrapper<AddressEntity>().eq("userid", userId));
+    	}
+    	address.setUserid(userId);
+        addressService.insert(address);
+        return R.ok();
+    }
+
     @RequestMapping("/update")
     public R update(@RequestBody AddressEntity address, HttpServletRequest request){
-        //ValidatorUtils.validateEntity(address);
+
         if(address.getIsdefault().equals("是")) {
     		addressService.updateForSet("isdefault='否'", new EntityWrapper<AddressEntity>().eq("userid", request.getSession().getAttribute("userId")));
     	}
-        addressService.updateById(address);//全部更新
+        addressService.updateById(address);
         return R.ok();
     }
-    
-    /**
-     * 获取默认地址
-     */
+
     @RequestMapping("/default")
     public R defaultAddress(HttpServletRequest request){
     	Wrapper<AddressEntity> wrapper = new EntityWrapper<AddressEntity>().eq("isdefault", "是").eq("userid", request.getSession().getAttribute("userId"));
@@ -182,24 +138,18 @@ public class AddressController {
         return R.ok().put("data", address);
     }
 
-    /**
-     * 删除
-     */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         addressService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
-    
-    /**
-     * 提醒接口
-     */
+
 	@RequestMapping("/remind/{columnName}/{type}")
 	public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request, 
 						 @PathVariable("type") String type,@RequestParam Map<String, Object> map) {
 		map.put("column", columnName);
 		map.put("type", type);
-		
+
 		if(type.equals("2")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
@@ -220,7 +170,7 @@ public class AddressController {
 				map.put("remindend", sdf.format(remindEndDate));
 			}
 		}
-		
+
 		Wrapper<AddressEntity> wrapper = new EntityWrapper<AddressEntity>();
 		if(map.get("remindstart")!=null) {
 			wrapper.ge(columnName, map.get("remindstart"));
@@ -232,16 +182,8 @@ public class AddressController {
     		wrapper.eq("userid", (Long)request.getSession().getAttribute("userId"));
     	}
 
-
 		int count = addressService.selectCount(wrapper);
 		return R.ok().put("count", count);
 	}
-	
-
-
-
-
-
-
 
 }

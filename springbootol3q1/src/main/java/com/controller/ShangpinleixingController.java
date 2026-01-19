@@ -36,26 +36,12 @@ import com.utils.MPUtil;
 import com.utils.CommonUtil;
 import java.io.IOException;
 
-/**
- * 商品类型
- * 后端接口
- * @author 
- * @email 
- * @date 2022-03-18 23:50:11
- */
 @RestController
 @RequestMapping("/shangpinleixing")
 public class ShangpinleixingController {
     @Autowired
     private ShangpinleixingService shangpinleixingService;
 
-
-    
-
-
-    /**
-     * 后端列表
-     */
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params,ShangpinleixingEntity shangpinleixing,
 		HttpServletRequest request){
@@ -64,10 +50,7 @@ public class ShangpinleixingController {
 
         return R.ok().put("data", page);
     }
-    
-    /**
-     * 前端列表
-     */
+
 	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,ShangpinleixingEntity shangpinleixing, 
@@ -77,9 +60,6 @@ public class ShangpinleixingController {
         return R.ok().put("data", page);
     }
 
-	/**
-     * 列表
-     */
     @RequestMapping("/lists")
     public R list( ShangpinleixingEntity shangpinleixing){
        	EntityWrapper<ShangpinleixingEntity> ew = new EntityWrapper<ShangpinleixingEntity>();
@@ -87,9 +67,6 @@ public class ShangpinleixingController {
         return R.ok().put("data", shangpinleixingService.selectListView(ew));
     }
 
-	 /**
-     * 查询
-     */
     @RequestMapping("/query")
     public R query(ShangpinleixingEntity shangpinleixing){
         EntityWrapper< ShangpinleixingEntity> ew = new EntityWrapper< ShangpinleixingEntity>();
@@ -97,80 +74,55 @@ public class ShangpinleixingController {
 		ShangpinleixingView shangpinleixingView =  shangpinleixingService.selectView(ew);
 		return R.ok("查询商品类型成功").put("data", shangpinleixingView);
     }
-	
-    /**
-     * 后端详情
-     */
+
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id){
         ShangpinleixingEntity shangpinleixing = shangpinleixingService.selectById(id);
         return R.ok().put("data", shangpinleixing);
     }
 
-    /**
-     * 前端详情
-     */
 	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         ShangpinleixingEntity shangpinleixing = shangpinleixingService.selectById(id);
         return R.ok().put("data", shangpinleixing);
     }
-    
 
-
-
-    /**
-     * 后端保存
-     */
     @RequestMapping("/save")
     public R save(@RequestBody ShangpinleixingEntity shangpinleixing, HttpServletRequest request){
     	shangpinleixing.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(shangpinleixing);
+
         shangpinleixingService.insert(shangpinleixing);
         return R.ok();
     }
-    
-    /**
-     * 前端保存
-     */
+
     @RequestMapping("/add")
     public R add(@RequestBody ShangpinleixingEntity shangpinleixing, HttpServletRequest request){
     	shangpinleixing.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
-    	//ValidatorUtils.validateEntity(shangpinleixing);
+
         shangpinleixingService.insert(shangpinleixing);
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
     @RequestMapping("/update")
     public R update(@RequestBody ShangpinleixingEntity shangpinleixing, HttpServletRequest request){
-        //ValidatorUtils.validateEntity(shangpinleixing);
-        shangpinleixingService.updateById(shangpinleixing);//全部更新
+
+        shangpinleixingService.updateById(shangpinleixing);
         return R.ok();
     }
-    
 
-    /**
-     * 删除
-     */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
         shangpinleixingService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
-    
-    /**
-     * 提醒接口
-     */
+
 	@RequestMapping("/remind/{columnName}/{type}")
 	public R remindCount(@PathVariable("columnName") String columnName, HttpServletRequest request, 
 						 @PathVariable("type") String type,@RequestParam Map<String, Object> map) {
 		map.put("column", columnName);
 		map.put("type", type);
-		
+
 		if(type.equals("2")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
@@ -191,7 +143,7 @@ public class ShangpinleixingController {
 				map.put("remindend", sdf.format(remindEndDate));
 			}
 		}
-		
+
 		Wrapper<ShangpinleixingEntity> wrapper = new EntityWrapper<ShangpinleixingEntity>();
 		if(map.get("remindstart")!=null) {
 			wrapper.ge(columnName, map.get("remindstart"));
@@ -200,16 +152,8 @@ public class ShangpinleixingController {
 			wrapper.le(columnName, map.get("remindend"));
 		}
 
-
 		int count = shangpinleixingService.selectCount(wrapper);
 		return R.ok().put("count", count);
 	}
-	
-
-
-
-
-
-
 
 }
