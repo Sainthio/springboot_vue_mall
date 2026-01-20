@@ -1,0 +1,29 @@
+flowchart TD
+    A[用户] -->|商品浏览请求| B[秒杀系统]
+    A -->|订单提交| B
+    A -->|购物车操作| B
+    A -->|用户注册/登录| B
+    
+    C[管理员] -->|商品管理| B
+    C -->|订单管理| B
+    C -->|用户管理| B
+    C -->|评论管理| B
+    C -->|活动管理| B
+    
+    B -->|商品数据| D[(商品数据库)]
+    B -->|订单数据| E[(订单数据库)]
+    B -->|用户数据| F[(用户数据库)]
+    B -->|评论数据| G[(评论数据库)]
+    B -->|活动数据| H[(活动数据库)]
+    
+    B -->|响应数据| A
+    B -->|管理数据| C
+    
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style B fill:#e8f5e9
+    style D fill:#f3e5f5
+    style E fill:#f3e5f5
+    style F fill:#f3e5f5
+    style G fill:#f3e5f5
+    style H fill:#f3e5f5

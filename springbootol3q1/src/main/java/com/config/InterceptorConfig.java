@@ -9,24 +9,44 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import com.interceptor.AuthorizationInterceptor;
 
 @Configuration
-public class InterceptorConfig extends WebMvcConfigurationSupport{
+public class InterceptorConfig extends WebMvcConfigurationSupport {
 
-	@Bean
+    @Bean
     public AuthorizationInterceptor getAuthorizationInterceptor() {
         return new AuthorizationInterceptor();
     }
 
-	@Override
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getAuthorizationInterceptor()).addPathPatterns("
-	@Override
+        registry.addInterceptor(getAuthorizationInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns(
+                        "/**/*.html",
+                        "/**/*.js",
+                        "/**/*.css",
+                        "/**/*.png",
+                        "/**/*.jpg",
+                        "/**/*.jpeg",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.woff",
+                        "/**/*.woff2",
+                        "/**/*.ttf",
+                        "/swagger-resources/**",
+                        "/v2/api-docs",
+                        "/webjars/**"
+                );
+        super.addInterceptors(registry);
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**")
-        .addResourceLocations("classpath:/resources/")
-        .addResourceLocations("classpath:/static/")
-        .addResourceLocations("classpath:/admin/")
-        .addResourceLocations("classpath:/front/")
-        .addResourceLocations("classpath:/public/");
-		super.addResourceHandlers(registry);
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/admin/")
+                .addResourceLocations("classpath:/front/")
+                .addResourceLocations("classpath:/public/");
+        super.addResourceHandlers(registry);
     }
 }

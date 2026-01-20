@@ -1,0 +1,55 @@
+graph TB
+    subgraph 表现层["表现层 (Presentation Layer)"]
+        A1["用户端界面<br/>(Vue.js+Element UI)"]
+        A2["管理端界面<br/>(Vue.js+响应式设计)"]
+        A3["API接口层<br/>(RESTful)"]
+    end
+    
+    subgraph 应用服务层["应用服务层 (Application Service Layer)"]
+        B1["商品服务<br/>商品管理、库存管理、秒杀倒计时"]
+        B2["订单服务<br/>订单创建、状态管理、订单查询"]
+        B3["购物车服务<br/>添加、修改、删除、结算"]
+        B4["用户服务<br/>注册、登录、个人信息管理"]
+    end
+    
+    subgraph 核心服务层["核心服务层 (Core Service Layer)"]
+        C1["认证服务<br/>Token验证、权限控制"]
+        C2["文件服务<br/>图片上传、文件管理"]
+        C3["通用服务<br/>数据统计、通用工具"]
+    end
+    
+    subgraph 数据存储层["数据存储层 (Data Storage Layer)"]
+        D1["关系型数据库<br/>(MySQL)"]
+        D2["文件存储<br/>(本地文件系统)"]
+    end
+    
+    A1 -.->|"调用"| B1
+    A1 -.->|"调用"| B2
+    A1 -.->|"调用"| B3
+    A1 -.->|"调用"| B4
+    A1 -.->|"认证"| C1
+    
+    A2 -.->|"调用"| B1
+    A2 -.->|"调用"| B2
+    A2 -.->|"调用"| B4
+    A2 -.->|"认证"| C1
+    
+    A3 -.->|"提供接口"| B1
+    A3 -.->|"提供接口"| B2
+    A3 -.->|"提供接口"| B3
+    A3 -.->|"提供接口"| B4
+    
+    B1 -.->|"数据访问"| D1
+    B1 -.->|"文件存储"| D2
+    B2 -.->|"数据访问"| D1
+    B3 -.->|"数据访问"| D1
+    B4 -.->|"数据访问"| D1
+    
+    C1 -.->|"数据访问"| D1
+    C2 -.->|"文件存储"| D2
+    C3 -.->|"数据访问"| D1
+    
+    style 表现层 fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    style 应用服务层 fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style 核心服务层 fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    style 数据存储层 fill:#FCE4EC,stroke:#C2185B,stroke-width:2px

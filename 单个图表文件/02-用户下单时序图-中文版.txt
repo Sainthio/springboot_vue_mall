@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant U as 用户
+    participant FC as 前端控制器
+    participant OC as 订单控制器
+    participant OS as 订单服务
+    participant CS as 购物车服务
+    participant AS as 地址服务
+    participant DB as 数据库
+    
+    Note over U,DB: 用户下单流程
+    
+    U->>FC: 提交订单请求
+    FC->>OC: POST /orders/add
+    OC->>OS: 创建订单
+    OS->>CS: 获取购物车信息
+    CS->>DB: 查询购物车数据
+    DB-->>CS: 返回购物车数据
+    CS-->>OS: 购物车信息
+    
+    OS->>AS: 获取收货地址
+    AS->>DB: 查询地址数据
+    DB-->>AS: 返回地址数据
+    AS-->>OS: 地址信息
+    
+    OS->>OS: 计算订单总价
+    OS->>OS: 生成订单编号
+    OS->>DB: 插入订单记录
+    DB-->>OS: 订单创建成功
+    
+    OS->>CS: 清空购物车
+    CS->>DB: 删除购物车记录
+    DB-->>CS: 删除成功
+    CS-->>OS: 购物车已清空
+    
+    OS-->>OC: 返回订单结果
+    OC-->>FC: 返回响应
+    FC-->>U: 订单提交成功

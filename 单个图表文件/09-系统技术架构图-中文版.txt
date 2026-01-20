@@ -1,0 +1,44 @@
+graph LR
+    subgraph 前端技术栈["前端技术栈"]
+        A1[Vue.js<br/>前端框架]
+        A2[Element UI<br/>UI组件库]
+        A3[Axios<br/>HTTP客户端]
+        A4[ECharts<br/>图表库]
+    end
+    
+    subgraph 后端技术栈["后端技术栈"]
+        B1[Spring Boot<br/>应用框架]
+        B2[Spring MVC<br/>Web框架]
+        B3[MyBatis Plus<br/>ORM框架]
+        B4[Shiro<br/>安全框架]
+    end
+    
+    subgraph 数据存储["数据存储"]
+        C1[MySQL<br/>关系型数据库]
+        C2[文件存储<br/>商品图片等]
+    end
+    
+    subgraph 开发工具["开发工具"]
+        D1[Maven<br/>项目管理]
+        D2[Git<br/>版本控制]
+        D3[IDEA<br/>开发IDE]
+    end
+    
+    A1 --> A2
+    A1 --> A3
+    A1 --> A4
+    A3 --> B2
+    
+    B1 --> B2
+    B1 --> B3
+    B1 --> B4
+    B3 --> C1
+    B2 --> C2
+    
+    D1 --> B1
+    D2 --> B1
+    
+    style 前端技术栈 fill:#E3F2FD
+    style 后端技术栈 fill:#F3E5F5
+    style 数据存储 fill:#E8F5E9
+    style 开发工具 fill:#FFF3E0

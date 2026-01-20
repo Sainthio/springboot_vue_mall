@@ -1,0 +1,111 @@
+graph TB
+    subgraph 表现层["表现层 (Presentation Layer)"]
+        A1[前端页面<br/>Vue.js]
+        A2[管理端页面<br/>Vue.js]
+        A3[移动端页面<br/>可选]
+    end
+    
+    subgraph 控制层["控制层 (Controller Layer)"]
+        B1[用户控制器<br/>YonghuController]
+        B2[商品控制器<br/>ShangpinxinxiController]
+        B3[订单控制器<br/>OrdersController]
+        B4[购物车控制器<br/>CartController]
+        B5[地址控制器<br/>AddressController]
+        B6[评论控制器<br/>DiscussshangpinxinxiController]
+        B7[客服控制器<br/>ChatController]
+        B8[拦截器<br/>AuthorizationInterceptor]
+    end
+    
+    subgraph 业务层["业务层 (Service Layer)"]
+        C1[用户服务<br/>YonghuService]
+        C2[商品服务<br/>ShangpinxinxiService]
+        C3[订单服务<br/>OrdersService]
+        C4[购物车服务<br/>CartService]
+        C5[地址服务<br/>AddressService]
+        C6[Token服务<br/>TokenService]
+        C7[通用服务<br/>CommonService]
+    end
+    
+    subgraph 数据访问层["数据访问层 (DAO Layer)"]
+        D1[用户DAO<br/>YonghuDao]
+        D2[商品DAO<br/>ShangpinxinxiDao]
+        D3[订单DAO<br/>OrdersDao]
+        D4[购物车DAO<br/>CartDao]
+        D5[MyBatis Mapper<br/>XML映射文件]
+    end
+    
+    subgraph 数据层["数据层 (Data Layer)"]
+        E1[(MySQL数据库<br/>商品表)]
+        E2[(MySQL数据库<br/>订单表)]
+        E3[(MySQL数据库<br/>用户表)]
+        E4[(MySQL数据库<br/>其他业务表)]
+    end
+    
+    A1 --> B1
+    A1 --> B2
+    A1 --> B3
+    A1 --> B4
+    A2 --> B2
+    A2 --> B3
+    A2 --> B5
+    
+    B1 --> B8
+    B2 --> B8
+    B3 --> B8
+    B4 --> B8
+    
+    B8 --> C1
+    B1 --> C1
+    B2 --> C2
+    B3 --> C3
+    B4 --> C4
+    B5 --> C5
+    B8 --> C6
+    
+    C1 --> D1
+    C2 --> D2
+    C3 --> D3
+    C4 --> D4
+    C5 --> D1
+    
+    D1 --> D5
+    D2 --> D5
+    D3 --> D5
+    D4 --> D5
+    
+    D5 --> E1
+    D5 --> E2
+    D5 --> E3
+    D5 --> E4
+    
+    E1 --> D5
+    E2 --> D5
+    E3 --> D5
+    E4 --> D5
+    
+    D5 --> D1
+    D5 --> D2
+    D5 --> D3
+    D5 --> D4
+    
+    D1 --> C1
+    D2 --> C2
+    D3 --> C3
+    D4 --> C4
+    
+    C1 --> B1
+    C2 --> B2
+    C3 --> B3
+    C4 --> B4
+    C5 --> B5
+    
+    B1 --> A1
+    B2 --> A1
+    B3 --> A1
+    B4 --> A1
+    
+    style 表现层 fill:#E3F2FD
+    style 控制层 fill:#F3E5F5
+    style 业务层 fill:#E8F5E9
+    style 数据访问层 fill:#FFF3E0
+    style 数据层 fill:#FCE4EC

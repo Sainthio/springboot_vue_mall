@@ -1,0 +1,76 @@
+classDiagram
+  direction TB
+
+  class YonghuEntity["用户"] {
+    +id
+    +账号
+    +昵称
+  }
+
+  class ShangpinleixingEntity["商品类型"] {
+    +id
+    +类型名
+  }
+
+  class ShangpinxinxiEntity["商品"] {
+    +id
+    +商品名
+    +价格
+    +库存
+  }
+
+  class OrdersEntity["订单"] {
+    +id
+    +订单号
+    +数量
+    +总价
+    +状态
+  }
+
+  class CartEntity["购物车"] {
+    +id
+    +数量
+  }
+
+  class AddressEntity["地址"] {
+    +id
+    +收货人
+    +电话
+    +地址
+  }
+
+  class StoreupEntity["收藏"] {
+    +id
+    +类型
+  }
+
+  class DiscussshangpinxinxiEntity["评论"] {
+    +id
+    +内容
+  }
+
+  class UserEntity["管理员"] {
+    +id
+    +用户名
+    +角色
+  }
+
+  class TokenEntity["Token"] {
+    +id
+    +token
+    +过期时间
+  }
+
+  YonghuEntity "1" --> "*" OrdersEntity : 下单
+  YonghuEntity "1" --> "*" CartEntity : 加入
+  YonghuEntity "1" --> "*" AddressEntity : 拥有
+  YonghuEntity "1" --> "*" StoreupEntity : 收藏
+  YonghuEntity "1" --> "*" DiscussshangpinxinxiEntity : 评论
+
+  ShangpinleixingEntity "1" --> "*" ShangpinxinxiEntity : 分类
+  ShangpinxinxiEntity "1" --> "*" OrdersEntity : 被购买
+  ShangpinxinxiEntity "1" --> "*" CartEntity : 加入
+  ShangpinxinxiEntity "1" --> "*" StoreupEntity : 被收藏
+  ShangpinxinxiEntity "1" --> "*" DiscussshangpinxinxiEntity : 被评论
+
+  UserEntity "1" --> "*" TokenEntity : 生成

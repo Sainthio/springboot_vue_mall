@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant U as 用户
+    participant FC as 前端
+    participant YC as 用户控制器
+    participant YS as 用户服务
+    participant TS as Token服务
+    participant DB as 数据库
+    
+    Note over U,DB: 用户登录流程
+    
+    U->>FC: 输入账号密码
+    FC->>YC: POST /yonghu/login
+    YC->>YS: 验证用户信息
+    YS->>DB: 查询用户数据
+    DB-->>YS: 返回用户数据
+    YS->>YS: 验证密码
+    
+    alt 密码正确
+        YS->>TS: 生成Token
+        TS->>TS: 生成令牌
+        TS->>DB: 保存Token
+        DB-->>TS: 保存成功
+        TS-->>YS: 返回Token
+        YS-->>YC: 登录成功+Token
+        YC-->>FC: 返回Token
+        FC-->>U: 登录成功
+    else 密码错误
+        YS-->>YC: 登录失败
+        YC-->>FC: 返回错误信息
+        FC-->>U: 账号或密码不正确
+    end

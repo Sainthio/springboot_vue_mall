@@ -132,7 +132,7 @@ export default {
         method: "post"
       }).then(({ data }) => {
         if (data && data.code === 0) {
-          this.$storage.set("Token", data.token);
+          this.$storage.set("AdminToken", data.token);
           this.$storage.set("role", this.rulesForm.role);
           this.$storage.set("sessionTable", this.tableName);
           this.$storage.set("adminName", this.rulesForm.username);

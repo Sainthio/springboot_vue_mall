@@ -1,10 +1,5 @@
 package com.config;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-/* *
-
 public class AlipayConfig {
+    // TODO: Alipay config placeholder
 }
-

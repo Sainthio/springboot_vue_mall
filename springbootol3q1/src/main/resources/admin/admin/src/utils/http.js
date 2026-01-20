@@ -12,7 +12,7 @@ const http = axios.create({
 })
 // 请求拦截
 http.interceptors.request.use(config => {
-    config.headers['Token'] = storage.get('Token') // 请求头带上token
+    config.headers['Token'] = storage.get('AdminToken') // 请求头带上token
     return config
 }, error => {
     return Promise.reject(error)

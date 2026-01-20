@@ -1,0 +1,24 @@
+graph TD
+    A[秒杀系统]
+    A --> B[前端模块]
+    A --> C[核心业务]
+    A --> D[后端模块]
+    A --> E[数据层]
+    
+    B --> B1[用户端]
+    B --> B2[管理端]
+    
+    C --> C1[商品服务]
+    C --> C2[订单服务]
+    C --> C3[用户服务]
+    
+    D --> D1[支撑服务]
+    
+    E --> E1[数据统计]
+    E --> E2[数据存储]
+    
+    style A fill:#4CAF50,color:#fff
+    style B fill:#2196F3,color:#fff
+    style C fill:#FF9800,color:#fff
+    style D fill:#9C27B0,color:#fff
+    style E fill:#F44336,color:#fff

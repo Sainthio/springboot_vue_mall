@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     onLogout() {
-      this.$storage.remove("Token");
+      this.$storage.remove("AdminToken");
       this.$router.replace({ name: "login" });
     },
     // 修改密码

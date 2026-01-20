@@ -1,0 +1,46 @@
+graph TB
+    subgraph 客户端["客户端层"]
+        A1[Web浏览器]
+        A2[移动浏览器]
+    end
+    
+    subgraph 负载均衡["负载均衡层"]
+        B1[Nginx<br/>反向代理]
+    end
+    
+    subgraph 应用服务器["应用服务器层"]
+        C1[Spring Boot应用<br/>端口8080]
+        C2[Spring Boot应用<br/>端口8081<br/>可选]
+    end
+    
+    subgraph 数据库服务器["数据库服务器层"]
+        D1[MySQL主库<br/>读写]
+        D2[MySQL从库<br/>只读<br/>可选]
+    end
+    
+    subgraph 文件存储["文件存储层"]
+        E1[本地文件系统<br/>/upload目录]
+        E2[OSS对象存储<br/>可选]
+    end
+    
+    A1 --> B1
+    A2 --> B1
+    
+    B1 --> C1
+    B1 --> C2
+    
+    C1 --> D1
+    C2 --> D1
+    C1 --> D2
+    C2 --> D2
+    
+    C1 --> E1
+    C2 --> E1
+    C1 --> E2
+    C2 --> E2
+    
+    style 客户端 fill:#E3F2FD
+    style 负载均衡 fill:#FFF3E0
+    style 应用服务器 fill:#F3E5F5
+    style 数据库服务器 fill:#E8F5E9
+    style 文件存储 fill:#FCE4EC
